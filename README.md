@@ -1,6 +1,7 @@
-# Cocos Creator 2D Template
+# Flappy Bird Clone
 
-A [Cocos Creator](https://www.cocos.com/en/creator) 2D template made with [Typescript](https://www.typescriptlang.org/).
+A Flappy Bird clone, made with [Cocos Creator](https://www.cocos.com/en/creator) with
+[Typescript](https://www.typescriptlang.org/).
 
 Comes with ESLint, Prettier, Yarn and VSCode configuration.
 
@@ -35,8 +36,8 @@ yarn -v
 ### Installing
 
 ```bash
-git clone https://github.com/Hashish-Crypto/cocos-2d-template
-cd cocos-2d-template
+git clone https://github.com/Hashish-Crypto/flappy-bird-clone
+cd flappy-bird-clone
 yarn install
 
 code .
