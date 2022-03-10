@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, EventTouch } from 'cc'
+import { _decorator, Component, Node, EventTouch } from 'cc'
 
 const { ccclass, property } = _decorator
 
@@ -16,10 +16,13 @@ const { ccclass, property } = _decorator
 
 @ccclass('BirdController')
 export class BirdController extends Component {
+  @property({ type: Node })
+  public canvas: Node = null
+
   private _speed: number = 0
 
   onLoad() {
-    find('Canvas').on(Node.EventType.TOUCH_START, this.onTouchStart, this)
+    this.canvas.on(Node.EventType.TOUCH_START, this.onTouchStart, this)
   }
 
   start() {}

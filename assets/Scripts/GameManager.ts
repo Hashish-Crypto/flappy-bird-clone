@@ -17,7 +17,7 @@ const { ccclass, property } = _decorator
 @ccclass('GameManager')
 export class GameManager extends Component {
   @property(Sprite)
-  spBg: Sprite[] = [null, null]
+  public spBg: Sprite[] = [null, null]
 
   start() {}
 
