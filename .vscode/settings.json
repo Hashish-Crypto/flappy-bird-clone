@@ -28,5 +28,6 @@
     "local/": true,
     "temp/": true
   },
-  "cSpell.words": ["ccclass"]
+  "cSpell.words": ["ccclass"],
+  "editor.foldingMaximumRegions": 50000
 }

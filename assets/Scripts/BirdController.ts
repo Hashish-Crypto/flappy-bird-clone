@@ -28,11 +28,21 @@ export class BirdController extends Component {
   start() {}
 
   update(deltaTime: number) {
-    this._speed -= 0.05
+    this._speed -= 0.1
     this.node.setPosition(this.node.position.x, this.node.position.y + this._speed)
+
+    let angle = (this._speed / 2) * 50
+    if (angle >= 30) {
+      angle = 30
+    }
+    if (angle <= -90) {
+      angle = -90
+    }
+
+    this.node.angle = angle
   }
 
   onTouchStart(event: EventTouch) {
-    this._speed = 2
+    this._speed = 4
   }
 }
