@@ -1,4 +1,4 @@
-import { _decorator, Component, Sprite, Prefab, Node, instantiate } from 'cc'
+import { _decorator, Component, Sprite, Prefab, Node, instantiate, PhysicsSystem2D, EPhysics2DDrawFlags } from 'cc'
 
 const { ccclass, property } = _decorator
 
@@ -26,14 +26,24 @@ export class GameManager extends Component {
   public pipePrefab: Prefab | null = null
 
   private _pipe: Node[] = [null, null, null]
-  private _minY: number = -120
-  private _maxY: number = 120
+  private _minY: number = -60
+  private _maxY: number = 60
+
+  onLoad() {
+    PhysicsSystem2D.instance.debugDrawFlags =
+      EPhysics2DDrawFlags.Aabb |
+      EPhysics2DDrawFlags.Pair |
+      EPhysics2DDrawFlags.CenterOfMass |
+      EPhysics2DDrawFlags.Joint |
+      EPhysics2DDrawFlags.Shape
+  }
 
   start() {
     for (let i = 0; i < this._pipe.length; i++) {
       this._pipe[i] = instantiate(this.pipePrefab)
       this.canvas.addChild(this._pipe[i])
-      this._pipe[i].setPosition(144 + 26 + 200 * i, this._minY + Math.random() * (this._maxY - this._minY))
+      this._pipe[i].getChildByName('PipeDown').setPosition(144 + 26 + 200 * i, 256 + this.getPipePositionY())
+      this._pipe[i].getChildByName('PipeUp').setPosition(144 + 26 + 200 * i, -256 + this.getPipePositionY())
     }
   }
 
@@ -47,11 +57,19 @@ export class GameManager extends Component {
     }
 
     for (let i = 0; i < this._pipe.length; i++) {
-      this._pipe[i].setPosition(this._pipe[i].position.x - 1, this._pipe[i].position.y)
+      const pipeDown = this._pipe[i].getChildByName('PipeDown')
+      const pipeUp = this._pipe[i].getChildByName('PipeUp')
 
-      if (this._pipe[i].position.x <= -144 - 26) {
-        this._pipe[i].setPosition(430, this._minY + Math.random() * (this._maxY - this._minY))
+      if (pipeDown.position.x <= -144 - 26) {
+        pipeDown.setPosition(-144 - 26 + 600, 256 + this.getPipePositionY())
+      }
+      if (pipeUp.position.x <= -144 - 26) {
+        pipeUp.setPosition(-144 - 26 + 600, -256 + this.getPipePositionY())
       }
     }
+  }
+
+  getPipePositionY() {
+    return this._minY + Math.random() * (this._maxY - this._minY)
   }
 }

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, EventTouch } from 'cc'
+import { _decorator, Component, Node, EventTouch, RigidBody2D, Vec2, tween, Vec3 } from 'cc'
 
 const { ccclass, property } = _decorator
 
@@ -19,30 +19,39 @@ export class BirdController extends Component {
   @property({ type: Node })
   public canvas: Node = null
 
-  private _speed: number = 0
+  @property({ type: Vec2 })
+  public impulse = new Vec2()
+
+  private _flapWing: number = 0
+  private _body: RigidBody2D | null = null
 
   onLoad() {
     this.canvas.on(Node.EventType.TOUCH_START, this.onTouchStart, this)
   }
 
-  start() {}
+  start() {
+    this._body = this.node.getComponent(RigidBody2D)
+  }
 
   update(deltaTime: number) {
-    this._speed -= 0.1
-    this.node.setPosition(this.node.position.x, this.node.position.y + this._speed)
+    this._flapWing -= 1
 
-    let angle = (this._speed / 2) * 50
-    if (angle >= 30) {
-      angle = 30
-    }
-    if (angle <= -90) {
-      angle = -90
+    if (this._flapWing <= -90) {
+      this._flapWing = -90
     }
 
-    this.node.angle = angle
+    this.node.angle = this._flapWing
   }
 
   onTouchStart(event: EventTouch) {
-    this._speed = 4
+    if (!this._body) return
+
+    this._body.applyLinearImpulseToCenter(this.impulse, true)
+
+    if (this._flapWing + 60 >= 30) {
+      this._flapWing = 30
+    } else {
+      this._flapWing += 60
+    }
   }
 }
