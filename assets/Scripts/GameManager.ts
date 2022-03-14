@@ -7,7 +7,6 @@ import {
   instantiate,
   PhysicsSystem2D,
   EPhysics2DDrawFlags,
-  Button,
   RigidBody2D,
   Vec2,
 } from 'cc'
@@ -15,10 +14,10 @@ import { BirdController } from './BirdController'
 
 const { ccclass, property } = _decorator
 
-export enum GameStatus {
-  Game_Ready = 0,
-  Game_Playing,
-  Game_Over,
+export enum GameState {
+  INIT,
+  PLAYING,
+  END,
 }
 
 /**
@@ -47,13 +46,13 @@ export class GameManager extends Component {
   @property({ type: Sprite })
   public spriteGameOver: Sprite | null = null
 
-  @property({ type: Button })
-  public buttonStart: Button | null = null
+  @property({ type: Sprite })
+  public spriteInstructions: Sprite | null = null
 
   @property({ type: Node })
   public bird: Node | null = null
 
-  public gameStatus: GameStatus = GameStatus.Game_Ready
+  public gameState: GameState = GameState.INIT
   private _pipe: Node[] = [null, null, null]
   private _minY: number = -60
   private _maxY: number = 60
@@ -67,8 +66,8 @@ export class GameManager extends Component {
       EPhysics2DDrawFlags.Shape
 
     this.spriteGameOver.node.active = false
-    this.buttonStart.node.active = true
-    this.buttonStart.node.on(Node.EventType.TOUCH_END, this.onTouchStartButton, this)
+    this.spriteInstructions.node.active = true
+    this.canvas.on(Node.EventType.TOUCH_START, this.onTouchScreenStartButton, this)
   }
 
   start() {
@@ -85,7 +84,7 @@ export class GameManager extends Component {
   }
 
   update(deltaTime: number) {
-    if (this.gameStatus !== GameStatus.Game_Playing) return
+    if (this.gameState !== GameState.PLAYING) return
 
     for (let i = 0; i < this.spBg.length; i++) {
       this.spBg[i].node.setPosition(this.spBg[i].node.position.x - 1, this.spBg[i].node.position.y)
@@ -114,8 +113,8 @@ export class GameManager extends Component {
 
   gameOver() {
     this.spriteGameOver.node.active = true
-    this.buttonStart.node.active = true
-    this.gameStatus = GameStatus.Game_Over
+    this.spriteInstructions.node.active = true
+    this.gameState = GameState.END
 
     for (let i = 0; i < this._pipe.length; i++) {
       const pipeDown = this._pipe[i].getChildByName('PipeDown')
@@ -126,21 +125,23 @@ export class GameManager extends Component {
     }
   }
 
-  onTouchStartButton() {
-    this.buttonStart.node.active = false
-    this.gameStatus = GameStatus.Game_Playing
-    this.spriteGameOver.node.active = false
+  onTouchScreenStartButton() {
+    if (this.gameState !== GameState.PLAYING) {
+      this.gameState = GameState.PLAYING
+      this.spriteGameOver.node.active = false
+      this.spriteInstructions.node.active = false
 
-    for (let i = 0; i < this._pipe.length; i++) {
-      const pipeDown = this._pipe[i].getChildByName('PipeDown')
-      const pipeUp = this._pipe[i].getChildByName('PipeUp')
+      for (let i = 0; i < this._pipe.length; i++) {
+        const pipeDown = this._pipe[i].getChildByName('PipeDown')
+        const pipeUp = this._pipe[i].getChildByName('PipeUp')
 
-      pipeDown.setPosition(144 + 26 + 200 * i, 256 + this.getPipePositionY())
-      pipeDown.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)
-      pipeUp.setPosition(144 + 26 + 200 * i, -256 + this.getPipePositionY())
-      pipeUp.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)
+        pipeDown.setPosition(144 + 26 + 200 * i, 256 + this.getPipePositionY())
+        pipeDown.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)
+        pipeUp.setPosition(144 + 26 + 200 * i, -256 + this.getPipePositionY())
+        pipeUp.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)
+      }
+
+      this.bird.getComponent(BirdController).resetBird()
     }
-
-    this.bird.getComponent(BirdController).resetBird()
   }
 }

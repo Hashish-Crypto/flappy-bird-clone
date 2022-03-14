@@ -10,7 +10,7 @@
   "repository": "https://github.com/Hashish-Crypto/flappy-bird-clone.git",
   "author": "Leandro Acquati <leandroacquati@gmail.com>",
   "license": "MIT",
-  "description": "A Flappy Bird Clone made with Cocos Creator.",
+  "description": "A Flappy Bird clone made with Cocos Creator.",
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@typescript-eslint/eslint-plugin": "^5.12.1",

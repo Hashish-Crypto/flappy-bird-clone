@@ -9,7 +9,7 @@ import {
   Contact2DType,
   Collider2D,
 } from 'cc'
-import { GameManager, GameStatus } from './GameManager'
+import { GameManager, GameState } from './GameManager'
 
 const { ccclass, property } = _decorator
 
@@ -38,7 +38,6 @@ export class BirdController extends Component {
 
   private _flapWing: number = 0
   private _body: RigidBody2D | null = null
-  private _isBirdControlEnabled: boolean = true
 
   onLoad() {
     this.canvas.on(Node.EventType.TOUCH_START, this.onTouchStart, this)
@@ -51,7 +50,7 @@ export class BirdController extends Component {
   }
 
   update(deltaTime: number) {
-    if (this.gameManager.gameStatus !== GameStatus.Game_Playing) return
+    if (this.gameManager.gameState !== GameState.PLAYING) return
 
     this._flapWing -= 1
 
@@ -63,21 +62,20 @@ export class BirdController extends Component {
   }
 
   onTouchStart(event: EventTouch) {
-    if (this._isBirdControlEnabled) {
-      if (!this._body) return
+    if (this.gameManager.gameState !== GameState.PLAYING) return
 
-      this._body.applyLinearImpulseToCenter(this.impulse, true)
+    if (!this._body) return
 
-      if (this._flapWing + 60 >= 30) {
-        this._flapWing = 30
-      } else {
-        this._flapWing += 60
-      }
+    this._body.applyLinearImpulseToCenter(this.impulse, true)
+
+    if (this._flapWing + 60 >= 30) {
+      this._flapWing = 30
+    } else {
+      this._flapWing += 60
     }
   }
 
   onBeginContact(a: Collider2D, b: Collider2D) {
-    this._isBirdControlEnabled = false
     this.gameManager.gameOver()
   }
 
@@ -87,6 +85,5 @@ export class BirdController extends Component {
     this._body.gravityScale = 1
     this._body.linearVelocity = new Vec2(0, 0)
     this._body.applyLinearImpulseToCenter(new Vec2(0, 0), true)
-    this._isBirdControlEnabled = true
   }
 }

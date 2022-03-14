@@ -26,7 +26,7 @@
     "_prefab": null,
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 31
+      "__id__": 30
     },
     "_id": "88288e1f-ce6d-4c4d-adb5-c3c4ab36ebc4"
   },
@@ -100,8 +100,8 @@
     "spriteGameOver": {
       "__id__": 23
     },
-    "buttonStart": {
-      "__id__": 27
+    "spriteInstructions": {
+      "__id__": 26
     },
     "bird": {
       "__id__": 12
@@ -135,13 +135,13 @@
     "_active": true,
     "_components": [
       {
+        "__id__": 27
+      },
+      {
         "__id__": 28
       },
       {
         "__id__": 29
-      },
-      {
-        "__id__": 30
       }
     ],
     "_prefab": null,
@@ -839,7 +839,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "ButtonStart",
+    "_name": "Instructions",
     "_objFlags": 0,
     "_parent": {
       "__id__": 4
@@ -852,16 +852,13 @@
       },
       {
         "__id__": 26
-      },
-      {
-        "__id__": 27
       }
     ],
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 0,
+      "y": -37,
       "z": 0
     },
     "_lrot": {
@@ -884,7 +881,7 @@
       "y": 0,
       "z": 0
     },
-    "_id": "7ebG23ed5PgbMm3zivbLjq"
+    "_id": "d9BdT7s4JHDL1DB9+Fd+Ba"
   },
   {
     "__type__": "cc.UITransform",
@@ -897,15 +894,15 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 40
+      "width": 114,
+      "height": 98
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
       "y": 0.5
     },
-    "_id": "87X6huz49EPJw3oww+HZ5r"
+    "_id": "b3wIfyuERN3YllGX2KN12a"
   },
   {
     "__type__": "cc.Sprite",
@@ -928,10 +925,10 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "162b085d-8cff-4916-b28f-75beed4ddc3d@f9941",
+      "__uuid__": "12bbc6b1-289d-4dab-bed3-964976b30f42@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
-    "_type": 1,
+    "_type": 0,
     "_fillType": 0,
     "_sizeMode": 0,
     "_fillCenter": {
@@ -944,70 +941,7 @@
     "_isTrimmedMode": true,
     "_useGrayscale": false,
     "_atlas": null,
-    "_id": "ffAucFCbtK8rr+fmT5Hja4"
-  },
-  {
-    "__type__": "cc.Button",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 24
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "clickEvents": [],
-    "_interactable": true,
-    "_transition": 2,
-    "_normalColor": {
-      "__type__": "cc.Color",
-      "r": 214,
-      "g": 214,
-      "b": 214,
-      "a": 255
-    },
-    "_hoverColor": {
-      "__type__": "cc.Color",
-      "r": 211,
-      "g": 211,
-      "b": 211,
-      "a": 255
-    },
-    "_pressedColor": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_disabledColor": {
-      "__type__": "cc.Color",
-      "r": 124,
-      "g": 124,
-      "b": 124,
-      "a": 255
-    },
-    "_normalSprite": {
-      "__uuid__": "162b085d-8cff-4916-b28f-75beed4ddc3d@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_hoverSprite": {
-      "__uuid__": "162b085d-8cff-4916-b28f-75beed4ddc3d@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_pressedSprite": {
-      "__uuid__": "162b085d-8cff-4916-b28f-75beed4ddc3d@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_disabledSprite": {
-      "__uuid__": "162b085d-8cff-4916-b28f-75beed4ddc3d@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_duration": 0.1,
-    "_zoomScale": 1.2,
-    "_target": {
-      "__id__": 24
-    },
-    "_id": "22MJmLLBpAvJyEMQSEeQ0p"
+    "_id": "30rb28HDJL37pgrxeT9GM5"
   },
   {
     "__type__": "cc.UITransform",
@@ -1077,19 +1011,19 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 32
+      "__id__": 31
     },
     "shadows": {
-      "__id__": 33
+      "__id__": 32
     },
     "_skybox": {
-      "__id__": 34
+      "__id__": 33
     },
     "fog": {
-      "__id__": 35
+      "__id__": 34
     },
     "octree": {
-      "__id__": 36
+      "__id__": 35
     }
   },
   {
