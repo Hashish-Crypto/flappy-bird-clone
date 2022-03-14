@@ -1,14 +1,4 @@
-import {
-  _decorator,
-  Component,
-  Node,
-  EventTouch,
-  RigidBody2D,
-  Vec2,
-  PhysicsSystem2D,
-  Contact2DType,
-  Collider2D,
-} from 'cc'
+import { _decorator, Component, Node, RigidBody2D, Vec2, PhysicsSystem2D, Contact2DType, Collider2D } from 'cc'
 import { GameManager, GameState } from './GameManager'
 
 const { ccclass, property } = _decorator
@@ -36,54 +26,48 @@ export class BirdController extends Component {
   @property({ type: Component })
   public gameManager: GameManager | null = null
 
-  private _flapWing: number = 0
+  private _birdAngle: number = 0
   private _body: RigidBody2D | null = null
 
-  onLoad() {
-    this.canvas.on(Node.EventType.TOUCH_START, this.onTouchStart, this)
-  }
-
   start() {
-    this._body = this.node.getComponent(RigidBody2D)
-
     PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this)
   }
 
   update(deltaTime: number) {
     if (this.gameManager.gameState !== GameState.PLAYING) return
 
-    this._flapWing -= 1
+    this._birdAngle -= 1
 
-    if (this._flapWing <= -90) {
-      this._flapWing = -90
+    if (this._birdAngle <= -90) {
+      this._birdAngle = -90
     }
 
-    this.node.angle = this._flapWing
-  }
-
-  onTouchStart(event: EventTouch) {
-    if (this.gameManager.gameState !== GameState.PLAYING) return
-
-    if (!this._body) return
-
-    this._body.applyLinearImpulseToCenter(this.impulse, true)
-
-    if (this._flapWing + 60 >= 30) {
-      this._flapWing = 30
-    } else {
-      this._flapWing += 60
-    }
+    this.node.angle = this._birdAngle
   }
 
   onBeginContact(a: Collider2D, b: Collider2D) {
     this.gameManager.gameOver()
   }
 
+  wingFlap() {
+    if (!this._body) return
+
+    this._body.applyLinearImpulseToCenter(this.impulse, true)
+
+    if (this._birdAngle + 60 >= 30) {
+      this._birdAngle = 30
+    } else {
+      this._birdAngle += 60
+    }
+  }
+
   resetBird() {
+    this.node.active = true
     this.node.setPosition(0, 0)
     this.node.angle = 0
+
+    this._body = this.node.getComponent(RigidBody2D)
     this._body.gravityScale = 1
     this._body.linearVelocity = new Vec2(0, 0)
-    this._body.applyLinearImpulseToCenter(new Vec2(0, 0), true)
   }
 }

@@ -40,8 +40,14 @@ export class GameManager extends Component {
   @property({ type: Sprite })
   public spBg: Sprite[] | null[] = [null, null]
 
+  @property({ type: Node })
+  public pipe: Node | null = null
+
   @property({ type: Prefab })
   public pipePrefab: Prefab | null = null
+
+  @property({ type: Sprite })
+  public spriteGetReady: Sprite | null = null
 
   @property({ type: Sprite })
   public spriteGameOver: Sprite | null = null
@@ -53,6 +59,7 @@ export class GameManager extends Component {
   public bird: Node | null = null
 
   public gameState: GameState = GameState.INIT
+  private _birdController: BirdController | null = null
   private _pipe: Node[] = [null, null, null]
   private _minY: number = -60
   private _maxY: number = 60
@@ -65,15 +72,18 @@ export class GameManager extends Component {
       EPhysics2DDrawFlags.Joint |
       EPhysics2DDrawFlags.Shape
 
+    this.spriteGetReady.node.active = true
     this.spriteGameOver.node.active = false
     this.spriteInstructions.node.active = true
-    this.canvas.on(Node.EventType.TOUCH_START, this.onTouchScreenStartButton, this)
+    this._birdController = this.bird.getComponent(BirdController)
+    this.bird.active = false
+    this.canvas.on(Node.EventType.TOUCH_START, this.onTouchScreen, this)
   }
 
   start() {
     for (let i = 0; i < this._pipe.length; i++) {
       this._pipe[i] = instantiate(this.pipePrefab)
-      this.canvas.addChild(this._pipe[i])
+      this.pipe.addChild(this._pipe[i])
 
       const pipeDown = this._pipe[i].getChildByName('PipeDown')
       const pipeUp = this._pipe[i].getChildByName('PipeUp')
@@ -125,9 +135,10 @@ export class GameManager extends Component {
     }
   }
 
-  onTouchScreenStartButton() {
+  onTouchScreen() {
     if (this.gameState !== GameState.PLAYING) {
       this.gameState = GameState.PLAYING
+      this.spriteGetReady.node.active = false
       this.spriteGameOver.node.active = false
       this.spriteInstructions.node.active = false
 
@@ -141,7 +152,11 @@ export class GameManager extends Component {
         pipeUp.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)
       }
 
-      this.bird.getComponent(BirdController).resetBird()
+      this._birdController.resetBird()
+    }
+
+    if (this.gameState === GameState.PLAYING) {
+      this._birdController.wingFlap()
     }
   }
 }
