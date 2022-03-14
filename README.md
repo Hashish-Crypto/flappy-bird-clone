@@ -1,6 +1,6 @@
 # Flappy Bird Clone
 
-A Flappy Bird clone, made with [Cocos Creator](https://www.cocos.com/en/creator) with
+A Flappy Bird clone, made with [Cocos Creator](https://www.cocos.com/en/creator) and
 [Typescript](https://www.typescriptlang.org/).
 
 Comes with ESLint, Prettier, Yarn and VSCode configuration.

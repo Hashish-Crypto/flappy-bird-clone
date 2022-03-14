@@ -1,5 +1,5 @@
 {
-  "name": "cocos-2d-template",
+  "name": "flappy-bird-clone",
   "type": "3d",
   "uuid": "f1a35c11-46f0-41d0-aa71-ef370c037141",
   "version": "3.4.1",
@@ -7,10 +7,10 @@
     "version": "3.4.1"
   },
   "main": "index.js",
-  "repository": "https://github.com/Hashish-Crypto/cocos-2d-template.git",
+  "repository": "https://github.com/Hashish-Crypto/flappy-bird-clone.git",
   "author": "Leandro Acquati <leandroacquati@gmail.com>",
   "license": "MIT",
-  "description": "A Cocos Creator 2D template made with Typescript.",
+  "description": "A Flappy Bird Clone made with Cocos Creator.",
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
