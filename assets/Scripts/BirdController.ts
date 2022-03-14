@@ -1,4 +1,15 @@
-import { _decorator, Component, Node, EventTouch, RigidBody2D, Vec2, tween, Vec3 } from 'cc'
+import {
+  _decorator,
+  Component,
+  Node,
+  EventTouch,
+  RigidBody2D,
+  Vec2,
+  PhysicsSystem2D,
+  Contact2DType,
+  Collider2D,
+} from 'cc'
+import { GameManager } from './GameManager'
 
 const { ccclass, property } = _decorator
 
@@ -22,6 +33,9 @@ export class BirdController extends Component {
   @property({ type: Vec2 })
   public impulse = new Vec2()
 
+  @property({ type: Component })
+  public gameManager: GameManager | null = null
+
   private _flapWing: number = 0
   private _body: RigidBody2D | null = null
 
@@ -31,6 +45,8 @@ export class BirdController extends Component {
 
   start() {
     this._body = this.node.getComponent(RigidBody2D)
+
+    PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this)
   }
 
   update(deltaTime: number) {
@@ -53,5 +69,9 @@ export class BirdController extends Component {
     } else {
       this._flapWing += 60
     }
+  }
+
+  onBeginContact(a: Collider2D, b: Collider2D) {
+    this.gameManager.gameOver()
   }
 }

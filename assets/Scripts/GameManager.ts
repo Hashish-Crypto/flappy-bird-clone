@@ -19,11 +19,14 @@ export class GameManager extends Component {
   @property({ type: Node })
   public canvas: Node = null
 
-  @property(Sprite)
+  @property({ type: Sprite })
   public spBg: Sprite[] = [null, null]
 
   @property({ type: Prefab })
   public pipePrefab: Prefab | null = null
+
+  @property({ type: Sprite })
+  public spriteGameOver: Sprite | null = null
 
   private _pipe: Node[] = [null, null, null]
   private _minY: number = -60
@@ -36,6 +39,8 @@ export class GameManager extends Component {
       EPhysics2DDrawFlags.CenterOfMass |
       EPhysics2DDrawFlags.Joint |
       EPhysics2DDrawFlags.Shape
+
+    this.spriteGameOver.node.active = false
   }
 
   start() {
@@ -71,5 +76,10 @@ export class GameManager extends Component {
 
   getPipePositionY() {
     return this._minY + Math.random() * (this._maxY - this._minY)
+  }
+
+  gameOver() {
+    this.spriteGameOver.node.active = true
+    console.log('You loose!')
   }
 }

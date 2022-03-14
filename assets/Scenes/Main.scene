@@ -26,7 +26,7 @@
     "_prefab": null,
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 24
+      "__id__": 27
     },
     "_id": "88288e1f-ce6d-4c4d-adb5-c3c4ab36ebc4"
   },
@@ -97,6 +97,9 @@
       "__uuid__": "407e2461-9d9d-4178-b3ed-364b2e079223",
       "__expectedType__": "cc.Prefab"
     },
+    "spriteGameOver": {
+      "__id__": 23
+    },
     "_id": "a69sy+t0lH9ZhUyLUPwzMG"
   },
   {
@@ -115,18 +118,21 @@
       },
       {
         "__id__": 19
+      },
+      {
+        "__id__": 21
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 21
+        "__id__": 24
       },
       {
-        "__id__": 22
+        "__id__": 25
       },
       {
-        "__id__": 23
+        "__id__": 26
       }
     ],
     "_prefab": null,
@@ -573,6 +579,9 @@
       "x": 0,
       "y": 5
     },
+    "gameManager": {
+      "__id__": 3
+    },
     "_id": "fbx+2SuhhJPbrmop4LYVqr"
   },
   {
@@ -587,7 +596,7 @@
     "tag": 0,
     "_group": 1,
     "_density": 1,
-    "_sensor": true,
+    "_sensor": false,
     "_friction": 0.2,
     "_restitution": 0,
     "_offset": {
@@ -714,6 +723,112 @@
     "_id": "942wnmP8pLt5mGttWtYNBi"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "GameOver",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 4
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 22
+      },
+      {
+        "__id__": 23
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_layer": 33554432,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "0ftdKGAGpNgJp0aq/TTEpl"
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 21
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 192,
+      "height": 42
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_id": "1eNahq09RMYIqoSyZIuqLp"
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 21
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_visFlags": 0,
+    "_customMaterial": null,
+    "_srcBlendFactor": 2,
+    "_dstBlendFactor": 4,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_spriteFrame": {
+      "__uuid__": "58c90fe9-703e-4c7e-ae06-c9ccb7f97aac@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "_type": 0,
+    "_fillType": 0,
+    "_sizeMode": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_useGrayscale": false,
+    "_atlas": null,
+    "_id": "bcGgcQUc5GuLhwi+vsN6xi"
+  },
+  {
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
@@ -781,19 +896,19 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 25
-    },
-    "shadows": {
-      "__id__": 26
-    },
-    "_skybox": {
-      "__id__": 27
-    },
-    "fog": {
       "__id__": 28
     },
-    "octree": {
+    "shadows": {
       "__id__": 29
+    },
+    "_skybox": {
+      "__id__": 30
+    },
+    "fog": {
+      "__id__": 31
+    },
+    "octree": {
+      "__id__": 32
     }
   },
   {
