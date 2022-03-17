@@ -38,29 +38,29 @@ export class GameManager extends Component {
   public canvas: Node | null = null
 
   @property({ type: Sprite })
-  public spBg: Sprite[] | null[] = [null, null]
+  public spriteBackground: Sprite[] | null[] = [null, null]
 
   @property({ type: Node })
   public pipe: Node | null = null
 
   @property({ type: Prefab })
-  public pipePrefab: Prefab | null = null
+  public prefabPipe: Prefab | null = null
 
   @property({ type: Sprite })
   public spriteGetReady: Sprite | null = null
 
   @property({ type: Sprite })
-  public spriteGameOver: Sprite | null = null
+  public spriteInstructions: Sprite | null = null
 
   @property({ type: Sprite })
-  public spriteInstructions: Sprite | null = null
+  public spriteGameOver: Sprite | null = null
 
   @property({ type: Node })
   public bird: Node | null = null
 
   public gameState: GameState = GameState.INIT
   private _birdController: BirdController | null = null
-  private _pipe: Node[] = [null, null, null]
+  private _pipes: Node[] = [null, null, null]
   private _minY: number = -60
   private _maxY: number = 60
 
@@ -81,12 +81,12 @@ export class GameManager extends Component {
   }
 
   start() {
-    for (let i = 0; i < this._pipe.length; i++) {
-      this._pipe[i] = instantiate(this.pipePrefab)
-      this.pipe.addChild(this._pipe[i])
+    for (let i = 0; i < this._pipes.length; i++) {
+      this._pipes[i] = instantiate(this.prefabPipe)
+      this.pipe.addChild(this._pipes[i])
 
-      const pipeDown = this._pipe[i].getChildByName('PipeDown')
-      const pipeUp = this._pipe[i].getChildByName('PipeUp')
+      const pipeDown = this._pipes[i].getChildByName('PipeDown')
+      const pipeUp = this._pipes[i].getChildByName('PipeUp')
 
       pipeDown.setPosition(144 + 26 + 200 * i, 256 + this.getPipePositionY())
       pipeUp.setPosition(144 + 26 + 200 * i, -256 + this.getPipePositionY())
@@ -96,22 +96,27 @@ export class GameManager extends Component {
   update(deltaTime: number) {
     if (this.gameState !== GameState.PLAYING) return
 
-    for (let i = 0; i < this.spBg.length; i++) {
-      this.spBg[i].node.setPosition(this.spBg[i].node.position.x - 1, this.spBg[i].node.position.y)
+    for (let i = 0; i < this.spriteBackground.length; i++) {
+      this.spriteBackground[i].node.setPosition(
+        this.spriteBackground[i].node.position.x - 1,
+        this.spriteBackground[i].node.position.y
+      )
 
-      if (this.spBg[i].node.position.x <= -288) {
-        this.spBg[i].node.setPosition(288, this.spBg[i].node.position.y)
+      if (this.spriteBackground[i].node.position.x <= -288) {
+        this.spriteBackground[i].node.setPosition(288, this.spriteBackground[i].node.position.y)
       }
     }
 
-    for (let i = 0; i < this._pipe.length; i++) {
-      const pipeDown = this._pipe[i].getChildByName('PipeDown')
-      const pipeUp = this._pipe[i].getChildByName('PipeUp')
+    for (let i = 0; i < this._pipes.length; i++) {
+      const pipeDown = this._pipes[i].getChildByName('PipeDown')
+      const pipeUp = this._pipes[i].getChildByName('PipeUp')
 
       if (pipeDown.position.x <= -144 - 26) {
+        console.log('pipeDown')
         pipeDown.setPosition(-144 - 26 + 600, 256 + this.getPipePositionY())
       }
       if (pipeUp.position.x <= -144 - 26) {
+        console.log('pipeUp')
         pipeUp.setPosition(-144 - 26 + 600, -256 + this.getPipePositionY())
       }
     }
@@ -126,9 +131,9 @@ export class GameManager extends Component {
     this.spriteInstructions.node.active = true
     this.gameState = GameState.END
 
-    for (let i = 0; i < this._pipe.length; i++) {
-      const pipeDown = this._pipe[i].getChildByName('PipeDown')
-      const pipeUp = this._pipe[i].getChildByName('PipeUp')
+    for (let i = 0; i < this._pipes.length; i++) {
+      const pipeDown = this._pipes[i].getChildByName('PipeDown')
+      const pipeUp = this._pipes[i].getChildByName('PipeUp')
 
       pipeDown.getComponent(RigidBody2D).linearVelocity = new Vec2(0, 0)
       pipeUp.getComponent(RigidBody2D).linearVelocity = new Vec2(0, 0)
@@ -142,9 +147,9 @@ export class GameManager extends Component {
       this.spriteGameOver.node.active = false
       this.spriteInstructions.node.active = false
 
-      for (let i = 0; i < this._pipe.length; i++) {
-        const pipeDown = this._pipe[i].getChildByName('PipeDown')
-        const pipeUp = this._pipe[i].getChildByName('PipeUp')
+      for (let i = 0; i < this._pipes.length; i++) {
+        const pipeDown = this._pipes[i].getChildByName('PipeDown')
+        const pipeUp = this._pipes[i].getChildByName('PipeUp')
 
         pipeDown.setPosition(144 + 26 + 200 * i, 256 + this.getPipePositionY())
         pipeDown.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)

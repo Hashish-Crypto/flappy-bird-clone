@@ -85,7 +85,7 @@
     "canvas": {
       "__id__": 4
     },
-    "spBg": [
+    "spriteBackground": [
       {
         "__id__": 10
       },
@@ -96,18 +96,18 @@
     "pipe": {
       "__id__": 21
     },
-    "pipePrefab": {
+    "prefabPipe": {
       "__uuid__": "407e2461-9d9d-4178-b3ed-364b2e079223",
       "__expectedType__": "cc.Prefab"
     },
     "spriteGetReady": {
       "__id__": 25
     },
-    "spriteGameOver": {
-      "__id__": 28
-    },
     "spriteInstructions": {
       "__id__": 31
+    },
+    "spriteGameOver": {
+      "__id__": 28
     },
     "bird": {
       "__id__": 14
@@ -828,7 +828,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 60,
+      "y": 56.056,
       "z": 0
     },
     "_lrot": {
