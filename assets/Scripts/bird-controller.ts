@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, RigidBody2D, Vec2, PhysicsSystem2D, Contact2DType, Collider2D } from 'cc'
+import { _decorator, Component, Node, RigidBody2D, Vec2, PhysicsSystem2D, Contact2DType, Collider2D, Vec3 } from 'cc'
 import { GameManager, GameState } from './game-manager'
 
 const { ccclass, property } = _decorator
@@ -26,7 +26,6 @@ export class BirdController extends Component {
   @property({ type: Component })
   public gameManager: GameManager | null = null
 
-  private _birdAngle: number = 0
   private _body: RigidBody2D | null = null
 
   start() {
@@ -40,13 +39,16 @@ export class BirdController extends Component {
       return
     }
 
-    this._birdAngle -= 1
-
-    if (this._birdAngle <= -90) {
-      this._birdAngle = -90
+    if (this.node.eulerAngles.z >= 40) {
+      this._body.angularVelocity = 0
+      this.node.setRotationFromEuler(new Vec3(0, 0, 40))
+      this._body.applyTorque(-5, true)
+    }
+    if (this.node.eulerAngles.z <= -90) {
+      this._body.angularVelocity = 0
+      this.node.setRotationFromEuler(new Vec3(0, 0, -90))
     }
 
-    this.node.angle = this._birdAngle
     this.node.setPosition(0, this.node.position.y)
   }
 
@@ -58,21 +60,17 @@ export class BirdController extends Component {
     if (!this._body) return
 
     this._body.applyLinearImpulseToCenter(this.impulse, true)
-
-    if (this._birdAngle + 60 >= 30) {
-      this._birdAngle = 30
-    } else {
-      this._birdAngle += 60
-    }
+    this._body.applyTorque(15, true)
   }
 
   resetBird() {
     this.node.active = true
     this.node.setPosition(0, 0)
-    this.node.angle = 0
+    this.node.setRotationFromEuler(new Vec3(0, 0, 0))
 
     this._body = this.node.getComponent(RigidBody2D)
     this._body.gravityScale = 1
+    this._body.angularVelocity = 0
     this._body.linearVelocity = new Vec2(0, 0)
   }
 }
