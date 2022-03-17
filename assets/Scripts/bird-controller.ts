@@ -47,6 +47,7 @@ export class BirdController extends Component {
     }
 
     this.node.angle = this._birdAngle
+    this.node.setPosition(0, this.node.position.y)
   }
 
   onBeginContact(a: Collider2D, b: Collider2D) {
