@@ -35,6 +35,10 @@ export class BirdController extends Component {
 
   update(deltaTime: number) {
     if (this.gameManager.gameState !== GameState.PLAYING) return
+    if (this.node.position.y > 256 + 12) {
+      this.gameManager.gameOver()
+      return
+    }
 
     this._birdAngle -= 1
 

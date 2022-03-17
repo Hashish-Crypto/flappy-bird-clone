@@ -41,7 +41,7 @@ export class GameManager extends Component {
   public spriteBackground: Sprite[] | null[] = [null, null]
 
   @property({ type: Node })
-  public pipe: Node | null = null
+  public pipesPlaceholder: Node | null = null
 
   @property({ type: Prefab })
   public prefabPipe: Prefab | null = null
@@ -83,7 +83,7 @@ export class GameManager extends Component {
   start() {
     for (let i = 0; i < this._pipes.length; i++) {
       this._pipes[i] = instantiate(this.prefabPipe)
-      this.pipe.addChild(this._pipes[i])
+      this.pipesPlaceholder.addChild(this._pipes[i])
 
       const pipeDown = this._pipes[i].getChildByName('PipeDown')
       const pipeUp = this._pipes[i].getChildByName('PipeUp')
