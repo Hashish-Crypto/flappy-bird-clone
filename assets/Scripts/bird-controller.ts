@@ -1,5 +1,5 @@
 import { _decorator, Component, Node, RigidBody2D, Vec2, PhysicsSystem2D, Contact2DType, Collider2D } from 'cc'
-import { GameManager, GameState } from './GameManager'
+import { GameManager, GameState } from './game-manager'
 
 const { ccclass, property } = _decorator
 

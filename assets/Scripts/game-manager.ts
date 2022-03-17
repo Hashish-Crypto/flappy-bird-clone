@@ -10,7 +10,7 @@ import {
   RigidBody2D,
   Vec2,
 } from 'cc'
-import { BirdController } from './BirdController'
+import { BirdController } from './bird-controller'
 
 const { ccclass, property } = _decorator
 
@@ -41,22 +41,25 @@ export class GameManager extends Component {
   public spriteBackground: Sprite[] | null[] = [null, null]
 
   @property({ type: Node })
+  public bird: Node | null = null
+
+  @property({ type: Node })
   public pipesPlaceholder: Node | null = null
 
   @property({ type: Prefab })
   public prefabPipe: Prefab | null = null
 
   @property({ type: Sprite })
-  public spriteGetReady: Sprite | null = null
+  public spriteGround: Sprite[] | null[] = [null, null]
 
   @property({ type: Sprite })
-  public spriteInstructions: Sprite | null = null
+  public spriteGetReady: Sprite | null = null
 
   @property({ type: Sprite })
   public spriteGameOver: Sprite | null = null
 
-  @property({ type: Node })
-  public bird: Node | null = null
+  @property({ type: Sprite })
+  public spriteInstructions: Sprite | null = null
 
   public gameState: GameState = GameState.INIT
   private _birdController: BirdController | null = null
@@ -112,12 +115,16 @@ export class GameManager extends Component {
       const pipeUp = this._pipes[i].getChildByName('PipeUp')
 
       if (pipeDown.position.x <= -144 - 26) {
-        console.log('pipeDown')
         pipeDown.setPosition(-144 - 26 + 600, 256 + this.getPipePositionY())
       }
       if (pipeUp.position.x <= -144 - 26) {
-        console.log('pipeUp')
         pipeUp.setPosition(-144 - 26 + 600, -256 + this.getPipePositionY())
+      }
+    }
+
+    for (let i = 0; i < this.spriteGround.length; i++) {
+      if (this.spriteGround[i].node.position.x <= -24 - 336) {
+        this.spriteGround[i].node.setPosition(-24 + 336, this.spriteGround[i].node.position.y)
       }
     }
   }
@@ -138,6 +145,10 @@ export class GameManager extends Component {
       pipeDown.getComponent(RigidBody2D).linearVelocity = new Vec2(0, 0)
       pipeUp.getComponent(RigidBody2D).linearVelocity = new Vec2(0, 0)
     }
+
+    for (let i = 0; i < this.spriteGround.length; i++) {
+      this.spriteGround[i].node.getComponent(RigidBody2D).linearVelocity = new Vec2(0, 0)
+    }
   }
 
   onTouchScreen() {
@@ -155,6 +166,11 @@ export class GameManager extends Component {
         pipeDown.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)
         pipeUp.setPosition(144 + 26 + 200 * i, -256 + this.getPipePositionY())
         pipeUp.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)
+      }
+
+      for (let i = 0; i < this.spriteGround.length; i++) {
+        this.spriteGround[i].node.setPosition(24 + 336 * i, -256)
+        this.spriteGround[i].node.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)
       }
 
       this._birdController.resetBird()
