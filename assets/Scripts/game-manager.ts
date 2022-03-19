@@ -173,11 +173,12 @@ export class GameManager extends Component {
         this.spriteGround[i].node.getComponent(RigidBody2D).linearVelocity = new Vec2(-1.2, 0)
       }
 
+      this.bird.active = true
       this._birdController.resetBird()
     }
 
     if (this.gameState === GameState.PLAYING) {
-      this._birdController.wingFlap()
+      this._birdController.flapWings()
     }
   }
 }
