@@ -72,7 +72,7 @@ export class GameManager extends Component {
   private _maxY: number = 60
   private _velocity: number = -1.2
   private _gameScore: number = 0
-  private _debug: boolean = false
+  private _debug: boolean = true
 
   onLoad() {
     if (this._debug) {
