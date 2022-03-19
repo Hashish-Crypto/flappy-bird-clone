@@ -156,7 +156,6 @@ export class GameManager extends Component {
       pipeDown.getComponent(RigidBody2D).linearVelocity = new Vec2(0, 0)
       pipeUp.getComponent(RigidBody2D).linearVelocity = new Vec2(0, 0)
       scoreSensor.getComponent(RigidBody2D).linearVelocity = new Vec2(0, 0)
-      scoreSensor.getComponent(RigidBody2D).enabledContactListener = false
     }
 
     for (let i = 0; i < this.spriteGround.length; i++) {
@@ -186,7 +185,6 @@ export class GameManager extends Component {
         pipeUp.getComponent(RigidBody2D).linearVelocity = new Vec2(this._velocity, 0)
         scoreSensor.setPosition(144 + 26 + 200 * i, _pipesGap)
         scoreSensor.getComponent(RigidBody2D).linearVelocity = new Vec2(this._velocity, 0)
-        scoreSensor.getComponent(RigidBody2D).enabledContactListener = true
       }
 
       for (let i = 0; i < this.spriteGround.length; i++) {
