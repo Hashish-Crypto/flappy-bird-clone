@@ -78,7 +78,11 @@ export class BirdController extends Component {
   }
 
   onBeginContact(a: Collider2D, b: Collider2D) {
-    this.gameManager.gameOver()
+    if (a.tag === 0) {
+      this.gameManager.gameOver()
+    } else if (a.tag === 1) {
+      this.gameManager.passedBetweenPipes()
+    }
   }
 
   flapWings() {
